@@ -21,7 +21,7 @@ cd /tmp
 rm latest 2>/dev/null
 if ! wget https://papermc.io/api/v1/paper/${minVer}/latest &>>${dir}/logs/update-${date}.log
 then
-        echo "Erreur du téléchargement du JSON de la ${minVer}"
+        echo "Error downloading JSON from ${minVer}"
         exit 1
 fi
 
@@ -35,16 +35,16 @@ if ! test -f $fileName
 then
         oldFile=$(ls | grep "paper-[0-9]*.jar")
 
-        if ! wget https://papermc.io/api/v1/paper/${minVer}/${VERSION}/download &>>logs/update-${date}.log
+        if ! wget https://papermc.io/api/v1/paper/${minVer}/${VERSION}/download &>>${dir}/logs/update-${date}.log
         then
-                echo "Erreur de téléchargement du build ${VERSION}"
+                echo "Error downloading build ${VERSION}"
                 exit 2
         fi
 
         mv download $fileName
 
         #if server is on, stop
-        if find_screen $screenName &>>logs/updates.log ; then
+        if find_screen $screenName &>>${dir}/logs/update-${date}.log ; then
                 screen -D -R $screenName -X stuff "say Update Server, Shutdown in 60 seconds $(printf '\r')"
                 sleep 30s
 		screen -D -R $screenName -X stuff "say Shutdown in 30 seconds $(printf '\r')"
