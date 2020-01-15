@@ -59,4 +59,4 @@ then
         rm -f $oldFile
 fi
 
-screen -d -R $screenName -m ./start.sh
+screen -d -S $screenName -m ./start.sh
