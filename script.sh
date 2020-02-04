@@ -19,7 +19,7 @@ function find_screen {
 
 cd /tmp
 rm latest 2>/dev/null
-if ! wget https://papermc.io/api/v1/paper/${minVer}/latest &>>${dir}/logs/update-${date}.log
+if ! wget -nv https://papermc.io/api/v1/paper/${minVer}/latest &>>${dir}/logs/update-${date}.log
 then
         echo "Error downloading JSON from ${minVer}"
         exit 1
@@ -35,7 +35,7 @@ if ! test -f $fileName
 then
         oldFile=$(ls | grep "paper-[0-9]*.jar")
 
-        if ! wget https://papermc.io/api/v1/paper/${minVer}/${VERSION}/download &>>${dir}/logs/update-${date}.log
+        if ! wget -nv https://papermc.io/api/v1/paper/${minVer}/${VERSION}/download &>>${dir}/logs/update-${date}.log
         then
                 echo "Error downloading build ${VERSION}"
                 exit 2
